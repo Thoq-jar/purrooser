@@ -1,0 +1,11 @@
+{
+    "mesonbuild.configureOnOpen": true,
+    "C_Cpp.default.configurationProvider": "mesonbuild.mesonbuild",
+    "C_Cpp.default.compileCommands": "/home/thoq/Projects/purrooser/builddir/compile_commands.json",
+    "files.associations": {
+        "webkit.h": "c",
+        "adwaita.h": "c",
+        "gtk.h": "c",
+        "gdkversionmacros.h": "c"
+    }
+}

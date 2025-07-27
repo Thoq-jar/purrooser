@@ -1,0 +1,67 @@
+/// Build system configuration
+/// Defines targets, languages, and build specifications
+module BuildConfig
+
+/// Supported programming languages
+abstract class Language {
+  /// Language name (automatically derived from class name)
+  name: String = this.getClass().simpleName
+
+  /// File extensions for this language
+  extensions: Set<String>
+
+  /// Default compiler flags
+  compilerFlags: List<String> = List()
+}
+
+/// C language configuration
+class C extends Language {
+  extensions = Set(".c", ".h")
+  compilerFlags = List("-std=c99", "-Wall", "-Wextra")
+}
+
+/// C++ language configuration
+class CPP extends Language {
+  extensions = Set(".cpp", ".cxx", ".cc", ".hpp", ".hxx", ".h")
+  compilerFlags = List("-std=c++17", "-Wall", "-Wextra")
+}
+
+/// Build target specification
+class Build {
+  /// Target name
+  name: String
+
+  /// Source file patterns or explicit paths
+  sources: Set<String>
+
+  /// Programming language for this build
+  language: Language
+
+  /// Build type (debug, release, test, shared, static, executable)
+  buildType: "debug" | "release" | "test" | "shared" | "static" | "executable" = "debug"
+
+  /// Additional compiler flags beyond language defaults
+  extraFlags: List<String> = List()
+
+  /// Link libraries
+  libraries: List<String> = List()
+
+  /// Build dependencies (other targets to link)
+  dependencies: List<String> = List()
+
+  /// Include directories
+  includePaths: List<String> = List()
+
+  /// Output directory
+  outputDir: String = "build/\(buildType)"
+
+  /// Final executable/library name
+  output: String = name
+}
+
+/// Main build configuration
+builds: Map<String, Build> = Map()
+
+/// Global settings
+globalIncludePaths: List<String> = List()
+globalLibraries: List<String> = List()

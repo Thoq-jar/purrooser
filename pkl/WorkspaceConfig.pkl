@@ -1,0 +1,98 @@
+/// Workspace configuration
+/// Defines workspace structure, scripts, and project organization
+module WorkspaceConfig
+
+import "BuildConfig.pkl"
+
+/// Development environment settings
+class Environment {
+  /// Environment name (dev, staging, prod)
+  name: String
+
+  /// Environment-specific variables
+  variables: Map<String, String> = Map()
+
+  /// Active feature flags
+  features: Set<String> = Set()
+}
+
+/// Build script definition
+class Script {
+  /// Script name/identifier
+  name: String
+
+  /// Script command or path
+  command: String
+
+  /// Script description
+  description: String?
+
+  /// Working directory (relative to workspace root)
+  workingDir: String = "."
+
+  /// Environment variables for this script
+  env: Map<String, String> = Map()
+
+  /// Dependencies - other scripts that must run first
+  dependencies: List<String> = List()
+
+  /// Platforms this script supports
+  platforms: Set<"linux" | "macos" | "windows"> = Set("linux", "macos", "windows")
+}
+
+/// Project/module within the workspace
+class Project {
+  /// Project name
+  name: String
+
+  /// Project path relative to workspace root
+  path: String
+
+  /// Build configuration for this project
+  buildConfig: String?
+
+  /// Project-specific scripts
+  scripts: Map<String, Script> = Map()
+
+  /// Project dependencies (other projects in workspace)
+  dependencies: List<String> = List()
+
+  /// Project type/category
+  type: "library" | "executable" | "test" | "tool" | "documentation" = "executable"
+}
+
+/// Main workspace configuration
+class Workspace {
+  /// Workspace name
+  name: String
+
+  /// Workspace version
+  version: String = "1.0.0"
+
+  /// Root directory (usually ".")
+  root: String = "."
+
+  /// Global build scripts available to all projects
+  scripts: Map<String, Script> = Map()
+
+  /// Projects/modules in this workspace
+  projects: Map<String, Project> = Map()
+
+  /// Development environments
+  environments: Map<String, Environment> = Map()
+
+  /// Default environment to use
+  defaultEnvironment: String = "dev"
+
+  /// Workspace-wide configuration files
+  configFiles: Map<String, String> = Map()
+
+  /// Global ignore patterns
+  ignorePatterns: List<String> = List("build/", "*.tmp", ".DS_Store", "node_modules/")
+
+  /// Workspace metadata
+  metadata: Map<String, String> = Map()
+}
+
+/// Workspace configuration instance
+workspace: Workspace = new Workspace {}

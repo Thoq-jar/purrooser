@@ -1,0 +1,22 @@
+import "../pkl/BuildConfig.pkl"
+
+builds = Map(
+  "purrooser", new BuildConfig.Build {
+    name = "purrooser"
+    sources = Set("*.c")
+    language = new BuildConfig.C {}
+    buildType = "release"
+    libraries = List(
+      "pkg:gtk4",
+      "pkg:webkitgtk-6.0",
+      "pkg:libadwaita-1"
+    )
+    includePaths = List(
+      "src"
+    )
+    extraFlags = List(
+      "-pthread"
+    )
+    output = "purrooser"
+  }
+)

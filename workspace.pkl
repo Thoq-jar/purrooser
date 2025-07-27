@@ -1,0 +1,51 @@
+amends "pkl/WorkspaceConfig.pkl"
+
+local commonScripts = Map(
+  "clean", new Script {
+    name = "clean"
+    command = "rm -rf build/ dist/ velux-out/"
+    description = "Clean all build artifacts"
+  },
+  "format", new Script {
+    name = "format"
+    command = "find src tests -name '*.c' -o -name '*.h' | xargs clang-format -i"
+    description = "Format all source code"
+  },
+  "run", new Script {
+    name = "run"
+    command = "./velux-out/executable/purrooser"
+    description = "Run the main application"
+    workingDir = "."
+  }
+)
+
+workspace = new Workspace {
+  name = "PurrooserBrowser"
+  version = "1.0.0"
+  scripts = commonScripts
+  projects = Map(
+    "build", new Project {
+      name = "build"
+      path = "."
+      type = "executable"
+      buildConfig = "**/*.pkl"
+    },
+    "purrooser", new Project {
+      name = "purrooser"
+      path = "src/"
+      type = "executable"
+      dependencies = List()
+      buildConfig = "purrooser.pkl"
+    }
+  )
+  environments = Map(
+    "prod", new Environment {
+      name = "prod"
+      variables = Map()
+    }
+  )
+
+  configFiles = Map(
+    "git", ".gitignore"
+  )
+}

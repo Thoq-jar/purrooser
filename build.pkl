@@ -1,0 +1,8 @@
+amends "pkl/BuildConfig.pkl"
+
+builds = Map(
+  "main", new Build {
+    name = "main"
+    language = new C {}
+  }
+)
